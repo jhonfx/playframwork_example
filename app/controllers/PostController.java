@@ -16,17 +16,15 @@ import views.html.*;
 public class PostController extends Controller {
 	
 	private Database db;
-	
+	private static Result GO_HOME = redirect(routes.HomeController.index());
 	@Inject
 	public PostController(Database db) {
 		this.db = db;
 	}
 	
 	public Result getPosts() throws SQLException {
-        String searchPost = request().getQueryString("blog");
 
         Connection conn = db.getConnection();
-
         String sqlQuery = "Select * from post_table";
         PreparedStatement getAnElementRow = conn.prepareStatement(sqlQuery);
 
@@ -36,6 +34,14 @@ public class PostController extends Controller {
 
         Blogpost blogp = (theElementSet.next()) ? mapToElement(theElementSet) : new Blogpost("", "","");
         return ok(Json.toJson(blogp));
+    }
+
+    public Result createPost() {
+	    return GO_HOME;
+    }
+
+    public Result deletePost() {
+	    return GO_HOME;
     }
 
     private Blogpost mapToElement(ResultSet theElementSet) throws SQLException {

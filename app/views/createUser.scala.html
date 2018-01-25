@@ -1,0 +1,23 @@
+@(user: Form[User])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(template.render) }
+
+@main {
+    <h1>Agregar usuario nuevo</h1>
+
+    @form(routes.UserController.createUser()) {
+        <fieldset>
+
+            @inputText(user("name"), '_label -> "Nombre", '_help ->"")
+            @inputText(user("lastname"), '_label -> "Lastname", '_help ->"")
+            @inputText(user("age"), '_label -> "Age", '_help ->"")
+            @inputText(user("location"), '_label -> "Location", '_help ->"")
+            @inputText(user("userType"), '_label -> "UserType", '_help ->"")
+        </fieldset>
+
+    }
+}
+
+
