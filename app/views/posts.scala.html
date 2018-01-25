@@ -1,5 +1,5 @@
 
-@(blogpost: Blogpost)
+@()
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +9,29 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
-        @blogpost.getTitle
-        @blogpost.getComment
-        @blogpost.getAutor
+    <script>
+    	$(document).ready( function() {
+    		var url = "/posts";
+    		$.get(url, function(data) {
+    			console.log(data);
+    			console.log(data.title);
+    			
+    			var div_post = $('#div_post');
+    			var contenido = "<h1>" + data.title + "<h1>"+
+    							"<p>" + data.comment + "</p>" +
+    							"<p>" + data.author + "</p>";
+				
+    			
+    			div_post.html(contenido);
+    				
+    		});
+    	})
+    </script>
+        <div id="div_post">
+        		
+        </div>
     </body>
 </html>

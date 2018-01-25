@@ -21,49 +21,12 @@ import java.util.Map;
  */
 public class HomeController extends Controller {
 
-    /**
-     * An action that renders an HTML page with a welcome message.
-     * The configuration in the <code>routes</code> file means that
-     * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
-     */
-    private Database db;
-
-    @Inject
-    public HomeController(Database db) {
-        this.db = db;
-    }
-
+  
     public Result index() {
-
-        return ok(index.render("Your new application is ready."));
-    }
-
-    public Result getBlogpost() throws SQLException {
-        String searchPost = request().getQueryString("blog");
-
-        Connection conn = db.getConnection();
-
-        String sqlQuery = "Select * from post_table";
-        PreparedStatement getAnElementRow = conn.prepareStatement(sqlQuery);
-
-        //String queryParameter = String.format("%%%s%%", searchPost.toLowerCase());
-        //getAnElementRow.setString(1, queryParameter);
-        ResultSet theElementSet = getAnElementRow.executeQuery();
-
-        Blogpost blogp = (theElementSet.next()) ? mapToElement(theElementSet) : new Blogpost("", "","");
-        return ok(Json.toJson(blogp));
-    }
-
-    private Blogpost mapToElement(ResultSet theElementSet) throws SQLException {
-        String title = theElementSet.getString("TITLE");
-        String comment = theElementSet.getString("COMMENT");
-        String autor = theElementSet.getString("AUTOR");
-        return new Blogpost(title, comment, autor);
+        return ok(views.html.posts.render());
     }
 
     public Result getFamily() {
-
         Map<String, String> family = new HashMap<>();
         family.put("Ximena Purata", "Son");
         family.put("Maleni Peña", "Wife");
