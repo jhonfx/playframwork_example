@@ -7,6 +7,7 @@ import play.mvc.*;
 
 import views.html.*;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,8 +29,7 @@ public class HomeController extends Controller {
      */
     private Database db;
 
-
-
+    @Inject
     public HomeController(Database db) {
         this.db = db;
     }
@@ -63,7 +63,7 @@ public class HomeController extends Controller {
     }
 
     public Result getFamily() {
-        String parameter = request().getQueryString("name");
+
         Map<String, String> family = new HashMap<>();
         family.put("Ximena Purata", "Son");
         family.put("Maleni Peña", "Wife");

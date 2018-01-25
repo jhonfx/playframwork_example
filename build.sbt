@@ -12,3 +12,5 @@ libraryDependencies ++= Seq(
   javaWs,
   evolutions
 )
+
+libraryDependencies ++= Seq(evolutions, jdbc)
